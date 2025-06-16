@@ -20,12 +20,29 @@ sample output - ["123", "456", "78"]
 """
 def stringSplit(duration):
     # The translation table replaces all characters in a given string with spaces
-    translation_table = str.maketrans("PTHMS", "     ") # (old_str, new_str)
-    translated_string = duration.translate(translation_table)
-    times = translated_string.strip().split(" ")
+    # translation_table = str.maketrans("PTHMS", "     ") # (old_str, new_str)
+    # print(translation_table)
+    # translated_string = duration.translate(translation_table)
+    # print(translated_string)
+    # times = translated_string.strip().split(" ")
+
+
+    # Changed function to work for all inputs
+    times = []
+    temp = ""
+
+    for char in duration:
+        if char.isdigit():
+            temp += char
+        else:
+            if temp != "":
+                times.append(temp)
+            temp = ""
 
     return times
 
+#print(stringSplit("GH123AB"))
+#print(stringSplit("PT123H456M78S"))
 
 """
 calcEfficiency: This function is meant to calculate the average wattage per hour
