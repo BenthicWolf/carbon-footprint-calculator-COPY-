@@ -1,0 +1,6 @@
+{
+    "error": {
+        "code": "ExpiredAuthenticationToken",
+        "message": "The access token expiry UTC time '6/16/2025 3:09:23 PM' is earlier than current UTC time '6/17/2025 8:51:43 AM'."
+    }
+}

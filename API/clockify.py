@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+
+
 API_KEY = os.getenv("API_KEY")
 Workspace_ID = os.getenv("Workspace_ID")
 BASE_URL = 'https://api.clockify.me/api/v1'
@@ -20,28 +22,12 @@ sample output - ["123", "456", "78"]
 """
 def stringSplit(duration):
     # The translation table replaces all characters in a given string with spaces
-    # translation_table = str.maketrans("PTHMS", "     ") # (old_str, new_str)
-    # print(translation_table)
-    # translated_string = duration.translate(translation_table)
-    # print(translated_string)
-    # times = translated_string.strip().split(" ")
-
-
-    # Changed function to work for all inputs
-    times = []
-    temp = ""
-
-    for char in duration:
-        if char.isdigit():
-            temp += char
-        else:
-            if temp != "":
-                times.append(temp)
-            temp = ""
+    translation_table = str.maketrans("PTHMS", "     ") # (old_str, new_str)
+    translated_string = duration.translate(translation_table)
+    times = translated_string.strip().split(" ")
 
     return times
 
-#print(stringSplit("GH123AB"))
 #print(stringSplit("PT123H456M78S"))
 
 """
@@ -76,9 +62,11 @@ def calcEfficiency(projects, data):
         wattage = 0
         users = project["memberships"]
         for user in users:
+            #print(f"User is {user}")
             print(user["userId"], project)
             if user["userId"] in data:
                 wattage += int(data[user["userId"]])
+                print(f"Wattage is {wattage}")
         if time == 0:
             watt_per_hour = 0
         else:
@@ -86,6 +74,8 @@ def calcEfficiency(projects, data):
         total_watt_per_hour.append(watt_per_hour)
     return total_watt_per_hour, projects
 
+#testproject = {"duration": "PT123H456M78S", "memberships": [{"userId": "01"}, {"userId": "02"}]}
+#print(calcEfficiency([testproject], {"01": 10, "02": 20}))
 
 def callApi ():
     response = requests.get(f'{BASE_URL}/workspaces/{Workspace_ID}/projects', headers=headers)

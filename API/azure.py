@@ -2,7 +2,7 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(dotenv_path="c:/Users/dylan/carbon-footprint-calculator-COPY-/API/vars.env")
 
 AUTH_KEY = os.getenv("AUTH_KEY")
 url = "https://management.azure.com/providers/Microsoft.Carbon/carbonEmissionReports?api-version=2025-04-01"
@@ -19,7 +19,7 @@ payload = json.dumps({
     "start": "2024-05-01",
     "end": "2024-05-01"
   },
-  "categoryType": "Subscription",
+  "categoryType": "Resource",
   "orderBy": "LatestMonthEmissions",
   "sortDirection": "Desc",
   "pageSize": 100
